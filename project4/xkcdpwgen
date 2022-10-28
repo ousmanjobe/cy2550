@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+
+import argparse,random
+
+with open("words.txt", "r") as file:
+    text = file.read()
+    words = list(map(str,text.split()))
+
+numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+parser = argparse.ArgumentParser(description="Generate a secure, memorable password using the XKCD method ", usage= "usage: xkcdpwgen [-h] [-w WORDS] [-c CAPS] [-n NUMBERS] [-s SYMBOLS]")
+
+parser.add_argument("-w", "--words", type=int, help= "include WORDS words in the password (default=4)", default=4)
+parser.add_argument("-c", "--caps", type=int, help= " insert NUMBERS random numbers in the password (default=0)", default=0)
+parser.add_argument("-n", "--numbers",type=int, help= "insert NUMBERS random numbers in the password (default=0)", default=0)
+parser.add_argument("-s", "--symbols",type=int, help= "insert SYMBOLS random symbols in the password (default=0)", default=0)
+ 
+args = parser.parse_args()
+ 
+list = []
+string = "".join(symbols)
+
+for w in range(args.words):
+    current = words[random.randint(0,len(words)-1)]
+    list.append(current)
+    list = [word.lower() for word in list]
+
+caps = random.sample(list,args.caps)
+Caps = [caps.Caps() for cap in caps]
+
+for x in Caps:
+    list.append(x)
+
+sym_count = 1
+num_count = 1
+while (sym_count <= args.symbols and num_count <= args.nums):
+    if (sym_count <= args.symbols):
+        list.append(symbols[random.choice(range(len(symbols)))])
+        sym_count+=1
+    if (num_count <= args.numbers):
+        list.append(numbers[random.choice(range(len(numbers)))])
+        num_count+=1
+
+final = ''
+final = final.join(list)
+print(final)
